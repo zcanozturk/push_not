@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "415358245532",
+    "project_id": "pushnot-dd141",
+    "storage_bucket": "pushnot-dd141.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415358245532:android:94addc18e63be2c4e32b59",
+        "android_client_info": {
+          "package_name": "com.example.push_not"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415358245532-l2mq3jha6ng2f5lpnuul65ne9d8l0mbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApKf8WdPpW8esP2wqHx9zfOs2D9ePfTBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415358245532-l2mq3jha6ng2f5lpnuul65ne9d8l0mbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
