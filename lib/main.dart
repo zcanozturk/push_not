@@ -6,6 +6,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
+  
 
   print("Handling a background message: ${message.messageId}");
 }
@@ -14,7 +15,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-
+  String? token = await messaging.getToken();
+  print(token);
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,
@@ -25,15 +27,9 @@ Future<void> main() async {
     sound: true,
   );
   print('User granted permission: ${settings.authorizationStatus}');
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
 
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
-  });
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   runApp(MyApp());
 }
 
@@ -96,6 +92,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      if (event.notification!.body!.contains('deneme')) {
+        showDialog(
+            context: context,
+            builder: ((context) {
+              return Dialog(
+                child: Text(event.notification!.body.toString() + ' from outside'),
+              );
+            }));
+      }
+    });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+      showDialog(
+          context: context,
+          builder: ((context) {
+            return Dialog(
+              child: Text(message.notification!.body.toString() + 'can'),
+            );
+          }));
+      if (message.notification != null) {
+        print(
+            'Message also contained a notification: ${message.notification!.toMap()}');
+      }
+    });
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
